@@ -72,18 +72,8 @@
     }
 
     .guild-tag {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 8px;
       font-size: 15px;
       margin-bottom: 15px;
-    }
-
-    .guild-tag span {
-      font-weight: bold;
-      color: #64674a;
-      text-transform: uppercase;
     }
 
     p {
@@ -196,11 +186,8 @@
       <img src="https://files.catbox.moe/t52w07.jpeg" alt="Profile" class="profile-image" />
       <h1>tribunes</h1>
 
-      <!-- Guild tag under name -->
-      <div class="guild-tag">
-        <i class="fa-solid fa-tag"></i>
-        <span>XO</span>
-      </div>
+      <!-- Replaced guild tag with live CST time -->
+      <div class="guild-tag" id="cst-time">loading time...</div>
 
       <p>creative director & clothing designer</p>
 
@@ -227,6 +214,7 @@
     &copy; tribunes made this
   </div>
 
+  <!-- Scripts -->
   <script>
     let activePrompt = null;
 
@@ -243,20 +231,20 @@
       });
     }
 
-    function copyWallet(element) {
-      const wallet = element.getAttribute('data-wallet');
-      navigator.clipboard.writeText(wallet);
-
-      if (activePrompt) activePrompt.classList.remove('show');
-      const prompt = element.querySelector('.copied-prompt');
-      prompt.classList.add('show');
-      activePrompt = prompt;
-
-      setTimeout(() => {
-        prompt.classList.remove('show');
-        activePrompt = null;
-      }, 1500);
+    function updateCSTTime() {
+      const now = new Date();
+      const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
+      const jan = new Date(now.getFullYear(), 0, 1).getTimezoneOffset();
+      const jul = new Date(now.getFullYear(), 6, 1).getTimezoneOffset();
+      const isDST = Math.min(jan, jul) !== now.getTimezoneOffset();
+      const offset = isDST ? -5 : -6;
+      const cstTime = new Date(utc + (3600000 * offset));
+      const options = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
+      document.getElementById('cst-time').textContent = cstTime.toLocaleTimeString('en-US', options);
     }
+
+    updateCSTTime();
+    setInterval(updateCSTTime, 1000);
   </script>
 </body>
 </html>
