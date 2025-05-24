@@ -231,17 +231,19 @@
       });
     }
 
-    function updateCSTTime() {
-      const now = new Date();
-      const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
-      const jan = new Date(now.getFullYear(), 0, 1).getTimezoneOffset();
-      const jul = new Date(now.getFullYear(), 6, 1).getTimezoneOffset();
-      const isDST = Math.min(jan, jul) !== now.getTimezoneOffset();
-      const offset = isDST ? -5 : -6;
-      const cstTime = new Date(utc + (3600000 * offset));
-      const options = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
-      document.getElementById('cst-time').textContent = cstTime.toLocaleTimeString('en-US', options);
-    }
+ function updateCSTTime() {
+  const now = new Date();
+  const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
+  const jan = new Date(now.getFullYear(), 0, 1).getTimezoneOffset();
+  const jul = new Date(now.getFullYear(), 6, 1).getTimezoneOffset();
+  const isDST = Math.min(jan, jul) !== now.getTimezoneOffset();
+  const offset = isDST ? -5 : -6;
+  
+  const cstTime = new Date(utc + (3600000 * offset) + 3600000);
+  
+  const options = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
+  document.getElementById('cst-time').textContent = cstTime.toLocaleTimeString('en-US', options);
+}
 
     updateCSTTime();
     setInterval(updateCSTTime, 1000);
