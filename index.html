@@ -118,15 +118,14 @@
       background: #f2f2f2;
     }
 
-    /* Volume Control */
     .volume-control {
       position: fixed;
-      top: 16px;
-      right: 16px;
+      top: 12px;
+      left: 50%;
+      transform: translateX(-50%);
       display: flex;
-      flex-direction: column;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
       opacity: 0;
       visibility: hidden;
       transition: opacity 0.6s ease;
@@ -136,12 +135,6 @@
     .volume-control.visible {
       opacity: 0.6;
       visibility: visible;
-    }
-
-    .volume-control i {
-      font-size: 20px;
-      color: #333;
-      cursor: pointer;
     }
 
     .volume-control input[type="range"] {
@@ -171,13 +164,18 @@
       border: none;
     }
 
-    /* Responsive */
+    .volume-control i {
+      font-size: 20px;
+      color: #333;
+      cursor: pointer;
+    }
+
     @media (max-width: 600px) {
       .volume-control {
         top: auto;
         bottom: 16px;
-        right: 50%;
-        transform: translateX(50%);
+        left: 50%;
+        transform: translateX(-50%);
       }
     }
 
@@ -205,7 +203,7 @@
     <source src="https://files.catbox.moe/5edrka.mp3" type="audio/mpeg" />
   </audio>
 
-  <!-- Intro overlay -->
+  <!-- Enter screen -->
   <div class="intro-overlay" onclick="startSite()">enter</div>
 
   <!-- Main content -->
@@ -231,7 +229,7 @@
     </div>
   </div>
 
-  <!-- Volume Control -->
+  <!-- Volume Controls -->
   <div class="volume-control" id="volumeControl">
     <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.5" />
     <i class="fa-solid fa-volume-high" id="volumeIcon"></i>
@@ -242,6 +240,7 @@
     &copy; tribunes made this
   </div>
 
+  <!-- JavaScript -->
   <script>
     let lastVolume = 0.5;
 
@@ -251,38 +250,45 @@
         document.querySelector('.intro-overlay').style.display = 'none';
         document.querySelector('.hidden-content').style.opacity = '1';
         document.getElementById('volumeControl').classList.add('visible');
-      }, 500);
 
-      const audio = document.getElementById('backgroundAudio');
-      audio.volume = lastVolume;
-      audio.play().catch(() => {
-        console.warn('Autoplay blocked.');
-      });
+        const audio = document.getElementById('backgroundAudio');
+        audio.volume = lastVolume;
+        audio.muted = false;
+        audio.play().catch(err => {
+          console.warn('Audio autoplay failed:', err);
+        });
+      }, 500);
     }
 
     const volumeSlider = document.getElementById('volumeSlider');
     const volumeIcon = document.getElementById('volumeIcon');
     const audio = document.getElementById('backgroundAudio');
 
-    volumeSlider.addEventListener('input', function () {
-      audio.volume = this.value;
-      lastVolume = this.value;
-      volumeIcon.classList.toggle('fa-volume-high', this.value > 0);
-      volumeIcon.classList.toggle('fa-volume-xmark', this.value == 0);
+    volumeSlider.addEventListener('input', () => {
+      audio.volume = volumeSlider.value;
+      lastVolume = volumeSlider.value;
+      updateVolumeIcon();
     });
 
-    volumeIcon.addEventListener('click', function () {
+    volumeIcon.addEventListener('click', () => {
       if (audio.volume > 0) {
         lastVolume = audio.volume;
         audio.volume = 0;
         volumeSlider.value = 0;
-        volumeIcon.classList.replace('fa-volume-high', 'fa-volume-xmark');
       } else {
         audio.volume = lastVolume || 0.5;
         volumeSlider.value = lastVolume || 0.5;
+      }
+      updateVolumeIcon();
+    });
+
+    function updateVolumeIcon() {
+      if (audio.volume == 0) {
+        volumeIcon.classList.replace('fa-volume-high', 'fa-volume-xmark');
+      } else {
         volumeIcon.classList.replace('fa-volume-xmark', 'fa-volume-high');
       }
-    });
+    }
   </script>
 </body>
 </html>
