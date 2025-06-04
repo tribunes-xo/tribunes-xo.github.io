@@ -135,7 +135,7 @@
     }
 
     .volume-control i {
-      font-size: 16px;
+      font-size: 20px;
       color: #333;
       cursor: pointer;
     }
@@ -175,6 +175,23 @@
       background: #555;
     }
 
+    /* Mobile tweaks */
+    @media (max-width: 600px) {
+      .volume-control {
+        top: auto;
+        bottom: 16px;
+        right: 50%;
+        transform: translateX(50%);
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .volume-control input[type="range"] {
+        width: 140px;
+      }
+    }
+
     .tiny-copyright {
       position: fixed;
       bottom: 4px;
@@ -189,20 +206,16 @@
 </head>
 <body>
 
-  <!-- Background Video -->
   <video class="video-background" autoplay muted loop>
     <source src="https://example.com/your-video.mp4" type="video/mp4" />
   </video>
 
-  <!-- Audio -->
   <audio id="backgroundAudio" loop>
     <source src="https://files.catbox.moe/5edrka.mp3" type="audio/mpeg" />
   </audio>
 
-  <!-- Intro overlay -->
   <div class="intro-overlay" onclick="startSite()">enter</div>
 
-  <!-- Main content -->
   <div class="hidden-content">
     <div class="container">
       <img src="https://files.catbox.moe/jvmx4y.jpg" alt="Profile" class="profile-image" />
@@ -225,13 +238,12 @@
     </div>
   </div>
 
-  <!-- Volume control (icon + slider) -->
+  <!-- Volume control -->
   <div class="volume-control" id="volumeControl">
     <i class="fa-solid fa-volume-high" id="volumeIcon"></i>
     <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.5" />
   </div>
 
-  <!-- Footer -->
   <div class="tiny-copyright">
     &copy; tribunes made this
   </div>
@@ -261,11 +273,8 @@
     volumeSlider.addEventListener('input', function () {
       audio.volume = this.value;
       lastVolume = this.value;
-      if (this.value == 0) {
-        volumeIcon.classList.replace('fa-volume-high', 'fa-volume-xmark');
-      } else {
-        volumeIcon.classList.replace('fa-volume-xmark', 'fa-volume-high');
-      }
+      volumeIcon.classList.toggle('fa-volume-high', this.value > 0);
+      volumeIcon.classList.toggle('fa-volume-xmark', this.value == 0);
     });
 
     volumeIcon.addEventListener('click', () => {
