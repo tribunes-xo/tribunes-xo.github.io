@@ -1,285 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>tribunes</title>
-  <link rel="icon" type="image/png" href="https://files.catbox.moe/7qgbeq.png" />
-  <link href="https://api.fontshare.com/css?f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
-  <script src="https://kit.fontawesome.com/16f6723644.js" crossorigin="anonymous"></script>
+  <meta charset="UTF-8">
+  <title>Centered Link</title>
   <style>
     html, body {
-      margin: 0;
       height: 100%;
-      font-family: 'Satoshi', sans-serif;
-      background: #ffffff;
-      color: #222222;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      margin: 0;
+      background-color: black;
+      color: white;
     }
-
-    .video-background {
-      position: fixed;
-      top: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 100vw;
-      height: 100vh;
-      object-fit: cover;
-      z-index: -2;
-      opacity: 0.1;
-    }
-
-    .intro-overlay {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background-color: rgba(255, 255, 255, 0.9);
+    body {
       display: flex;
       justify-content: center;
       align-items: center;
-      font-size: 24px;
-      color: #333;
-      z-index: 20;
-      cursor: pointer;
-      transition: opacity 0.5s ease;
     }
-
-    .hidden-content {
-      opacity: 0;
-      transition: opacity 0.8s ease;
-    }
-
-    .container {
-      text-align: center;
-      max-width: 450px;
-      padding: 20px 16px;
-    }
-
-    .profile-image {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      object-fit: cover;
-      margin-bottom: 10px;
-    }
-
-    h1 {
-      margin: 5px 0;
-      font-size: 24px;
-      color: #111;
-    }
-
-    .tags {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-bottom: 15px;
-    }
-
-    .tag {
-      padding: 3px 10px;
-      border: 1px solid #444;
-      border-radius: 999px;
-      font-size: 12px;
-      color: #333;
-    }
-
-    .icon-container {
-      display: flex;
-      justify-content: center;
-      gap: 16px;
-      margin-top: 8px;
-    }
-
-    .icon-container a {
+    a {
+      font-size: 1.5rem;
       text-decoration: none;
-      color: #333;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 38px;
-      height: 38px;
-      border-radius: 50%;
-      transition: transform 0.3s ease, background 0.3s;
+      color: #00bfff;
     }
-
-    .icon-container a i {
-      font-size: 20px;
-    }
-
-    .icon-container a:hover {
-      transform: scale(1.2);
-      background: #f2f2f2;
-    }
-
-    .volume-control {
-      position: fixed;
-      top: 16px;
-      right: 16px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.6s ease;
-      z-index: 100;
-    }
-
-    .volume-control.visible {
-      opacity: 0.6;
-      visibility: visible;
-    }
-
-    .volume-control i {
-      font-size: 16px;
-      color: #333;
-      cursor: pointer;
-    }
-
-    .volume-control input[type="range"] {
-      -webkit-appearance: none;
-      width: 100px;
-      height: 4px;
-      background: #ddd;
-      border-radius: 5px;
-      outline: none;
-      cursor: pointer;
-    }
-
-    .volume-control input[type="range"]::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      width: 14px;
-      height: 14px;
-      border-radius: 50%;
-      background: #333;
-      border: none;
-    }
-
-    .volume-control input[type="range"]::-moz-range-thumb {
-      width: 14px;
-      height: 14px;
-      border-radius: 50%;
-      background: #333;
-      border: none;
-    }
-
-    .volume-control input[type="range"]:hover::-webkit-slider-thumb {
-      background: #555;
-    }
-
-    .volume-control input[type="range"]:hover::-moz-range-thumb {
-      background: #555;
-    }
-
-    .tiny-copyright {
-      position: fixed;
-      bottom: 4px;
-      width: 100%;
-      text-align: center;
-      font-size: 8px;
-      color: rgba(0, 0, 0, 0.3);
-      z-index: 50;
-      pointer-events: none;
+    a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
 <body>
-
-  <!-- Background Video -->
-  <video class="video-background" autoplay muted loop>
-    <source src="https://example.com/your-video.mp4" type="video/mp4" />
-  </video>
-
-  <!-- Audio -->
-  <audio id="backgroundAudio" loop>
-    <source src="https://files.catbox.moe/5edrka.mp3" type="audio/mpeg" />
-  </audio>
-
-  <!-- Intro overlay -->
-  <div class="intro-overlay" onclick="startSite()">enter</div>
-
-  <!-- Main content -->
-  <div class="hidden-content">
-    <div class="container">
-      <img src="https://files.catbox.moe/jvmx4y.jpg" alt="Profile" class="profile-image" />
-      <h1>tribunes</h1>
-      <p>creative director & social media manager</p>
-
-      <div class="tags">
-        <span class="tag">ECommerce</span>
-        <span class="tag">YouTube</span>
-      </div>
-
-      <div class="icon-container">
-        <a href="https://discord.com/users/1315688935992590391" target="_blank">
-          <i class="fa-brands fa-discord"></i>
-        </a>
-        <a href="http://tribunes.lol" target="_blank">
-          <i class="fa-solid fa-globe"></i>
-        </a>
-      </div>
-    </div>
-  </div>
-
-  <!-- Volume control (icon + slider) -->
-  <div class="volume-control" id="volumeControl">
-    <i class="fa-solid fa-volume-high" id="volumeIcon"></i>
-    <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.5" />
-  </div>
-
-  <!-- Footer -->
-  <div class="tiny-copyright">
-    &copy; tribunes made this
-  </div>
-
-  <script>
-    let lastVolume = 0.5;
-
-    function startSite() {
-      document.querySelector('.intro-overlay').style.opacity = '0';
-      setTimeout(() => {
-        document.querySelector('.intro-overlay').style.display = 'none';
-        document.querySelector('.hidden-content').style.opacity = '1';
-        document.getElementById('volumeControl').classList.add('visible');
-      }, 500);
-
-      const audio = document.getElementById('backgroundAudio');
-      audio.volume = lastVolume;
-      audio.play().catch(() => {
-        console.warn('Audio autoplay blocked.');
-      });
-    }
-
-    const volumeSlider = document.getElementById('volumeSlider');
-    const volumeIcon = document.getElementById('volumeIcon');
-    const audio = document.getElementById('backgroundAudio');
-
-    volumeSlider.addEventListener('input', function () {
-      audio.volume = this.value;
-      lastVolume = this.value;
-      if (this.value == 0) {
-        volumeIcon.classList.replace('fa-volume-high', 'fa-volume-xmark');
-      } else {
-        volumeIcon.classList.replace('fa-volume-xmark', 'fa-volume-high');
-      }
-    });
-
-    volumeIcon.addEventListener('click', () => {
-      if (audio.volume > 0) {
-        lastVolume = audio.volume;
-        audio.volume = 0;
-        volumeSlider.value = 0;
-        volumeIcon.classList.replace('fa-volume-high', 'fa-volume-xmark');
-      } else {
-        audio.volume = lastVolume || 0.5;
-        volumeSlider.value = lastVolume || 0.5;
-        volumeIcon.classList.replace('fa-volume-xmark', 'fa-volume-high');
-      }
-    });
-  </script>
+  <a href="https://discord.gg/isolate">/isolate</a>
 </body>
 </html>
