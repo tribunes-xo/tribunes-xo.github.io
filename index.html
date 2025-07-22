@@ -2,30 +2,61 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Centered Link</title>
+  <title>@tribunes</title>
   <style>
-    html, body {
-      height: 100%;
-      margin: 0;
-      background-color: black;
-      color: white;
-    }
     body {
+      background-color: #000;
+      color: #fff;
+      font-family: monospace;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      position: relative;
     }
+
+    .ascii {
+      white-space: pre;
+      text-align: center;
+    }
+
     a {
-      font-size: 1.5rem;
-      text-decoration: none;
-      color: #00bfff;
-    }
-    a:hover {
+      margin-top: 30px;
+      color: #fff;
       text-decoration: underline;
+      font-size: 16px;
+    }
+
+    a:hover {
+      text-decoration: none;
+    }
+
+    footer {
+      position: absolute;
+      bottom: 20px;
+      font-size: 12px;
+      color: #777;
     }
   </style>
 </head>
 <body>
-  <a href="https://discord.gg/bosses">we some real /bosses</a>
+
+  <div class="ascii">
+  $$\               $$\ $$\                                                   $$\           $$\ 
+  $$ |              \__|$$ |                                                  $$ |          $$ |
+$$$$$$\    $$$$$$\  $$\ $$$$$$$\  $$\   $$\ $$$$$$$\   $$$$$$\   $$$$$$$\     $$ | $$$$$$\  $$ |
+\_$$  _|  $$  __$$\ $$ |$$  __$$\ $$ |  $$ |$$  __$$\ $$  __$$\ $$  _____|    $$ |$$  __$$\ $$ |
+  $$ |    $$ |  \__|$$ |$$ |  $$ |$$ |  $$ |$$ |  $$ |$$$$$$$$ |\$$$$$$\      $$ |$$ /  $$ |$$ |
+  $$ |$$\ $$ |      $$ |$$ |  $$ |$$ |  $$ |$$ |  $$ |$$   ____| \____$$\     $$ |$$ |  $$ |$$ |
+  \$$$$  |$$ |      $$ |$$$$$$$  |\$$$$$$  |$$ |  $$ |\$$$$$$$\ $$$$$$$  |$$\ $$ |\$$$$$$  |$$ |
+   \____/ \__|      \__|\_______/  \______/ \__|  \__| \_______|\_______/ \__|\__| \______/ \__|
+  </div>
+
+  <a href="https://tribunes.lol/me">@tribunes</a>
+
+  <footer>&copy; 2025 tribunes. All rights reserved.</footer>
+
 </body>
 </html>
